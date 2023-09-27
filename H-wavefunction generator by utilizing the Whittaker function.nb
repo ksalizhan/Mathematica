@@ -1,0 +1,272 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      9701,        262]
+NotebookOptionsPosition[      9268,        246]
+NotebookOutlinePosition[      9617,        261]
+CellTagsIndexPosition[      9574,        258]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Define", " ", "constants"}], "*)"}], 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Z", "=", "1"}], ";", 
+    RowBox[{"(*", 
+     RowBox[{
+     "Atomic", " ", "number", " ", "for", " ", "hydrogen", " ", "atom"}], 
+     "*)"}], 
+    RowBox[{"nMax", "=", "5"}], ";", 
+    RowBox[{"(*", 
+     RowBox[{"Maximum", " ", "principal", " ", "quantum", " ", "number"}], 
+     "*)"}], 
+    RowBox[{"lMax", "=", "2"}], ";", 
+    RowBox[{"(*", 
+     RowBox[{"Maximum", " ", "azimuthal", " ", "quantum", " ", "number"}], 
+     "*)"}], 
+    RowBox[{"(*", 
+     RowBox[{
+     "Define", " ", "radial", " ", "part", " ", "of", " ", "the", " ", 
+      "wavefunction"}], "*)"}], 
+    RowBox[{
+     RowBox[{"R", "[", 
+      RowBox[{"n_", ",", "l_", ",", "r_"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"Sqrt", "[", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"2", "/", 
+          RowBox[{"n", "^", "2"}]}], ")"}], "*", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"Z", "/", "n"}], ")"}], "^", "3"}], "*", 
+        RowBox[{
+         RowBox[{"Factorial", "[", 
+          RowBox[{"n", "-", "l", "-", "1"}], "]"}], "/", 
+         RowBox[{"Factorial", "[", 
+          RowBox[{"n", "+", "l"}], "]"}]}]}], "]"}], "*", 
+      RowBox[{"Exp", "[", 
+       RowBox[{
+        RowBox[{"-", 
+         RowBox[{"(", 
+          RowBox[{"Z", "/", "n"}], ")"}]}], "*", "r"}], "]"}], "*", 
+      RowBox[{"r", "^", "l"}], "*", 
+      RowBox[{"WhittakerM", "[", 
+       RowBox[{
+        RowBox[{"l", "+", 
+         RowBox[{"1", "/", "2"}]}], ",", 
+        RowBox[{"n", "-", "l"}], ",", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"2", "*", "Z", "*", "r"}], ")"}], "/", "n"}]}], "]"}]}]}], 
+    ";"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "Define", " ", "angular", " ", "part", " ", "of", " ", "the", " ", 
+     "wavefunction"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Y", "[", 
+      RowBox[{"l_", ",", "m_", ",", "\[Theta]_", ",", "\[Phi]_"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"Sqrt", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"2", "*", "l"}], "+", "1"}], ")"}], "/", 
+         RowBox[{"(", 
+          RowBox[{"4", "*", "\[Pi]"}], ")"}]}], "*", 
+        RowBox[{
+         RowBox[{"Factorial", "[", 
+          RowBox[{"l", "-", "m"}], "]"}], "/", 
+         RowBox[{"Factorial", "[", 
+          RowBox[{"l", "+", "m"}], "]"}]}]}], "]"}], "*", 
+      RowBox[{"LegendreP", "[", 
+       RowBox[{"l", ",", "m", ",", 
+        RowBox[{"Cos", "[", "\[Theta]", "]"}]}], "]"}], "*", 
+      RowBox[{"Exp", "[", 
+       RowBox[{"I", "*", "m", "*", "\[Phi]"}], "]"}]}]}], ";"}], "\n", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Generate", " ", "and", " ", "plot", " ", "wavefunctions"}], 
+    "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"wavefunctions", "=", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"R", "[", 
+         RowBox[{"n", ",", "l", ",", "r"}], "]"}], "*", 
+        RowBox[{"Y", "[", 
+         RowBox[{"l", ",", "m", ",", "\[Theta]", ",", "\[Phi]"}], "]"}]}], 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{"n", ",", "1", ",", "nMax"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"l", ",", "0", ",", "lMax"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"m", ",", 
+         RowBox[{"-", "l"}], ",", "l"}], "}"}]}], "]"}]}], ";"}], "\n", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "Plot", " ", "the", " ", "real", " ", "part", " ", "of", " ", "the", " ", 
+     "wavefunctions"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"Manipulate", "[", 
+    RowBox[{
+     RowBox[{"Plot3D", "[", 
+      RowBox[{
+       RowBox[{"Re", "[", 
+        RowBox[{"Total", "[", 
+         RowBox[{"Flatten", "[", 
+          RowBox[{"wavefunctions", "[", 
+           RowBox[{"[", 
+            RowBox[{"n", ",", 
+             RowBox[{"l", "+", "1"}]}], "]"}], "]"}], "]"}], "]"}], "]"}], 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{"r", ",", "0", ",", "10"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"\[Theta]", ",", "0", ",", "Pi"}], "}"}], ",", 
+       RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<r\>\"", ",", "\"\<\[Theta]\>\"", ",", "\"\<Re[\[Psi]]\>\""}], 
+         "}"}]}], ",", 
+       RowBox[{"PlotLabel", "\[Rule]", 
+        RowBox[{"StringForm", "[", 
+         RowBox[{
+         "\"\<Hydrogen Atom Wavefunction: n=`1`, l=`2`\>\"", ",", "n", ",", 
+          "l"}], "]"}]}], ",", 
+       RowBox[{"MeshFunctions", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"#3", "&"}], "}"}]}], ",", 
+       RowBox[{"MeshStyle", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"{", 
+          RowBox[{"Thick", ",", "Red"}], "}"}], "}"}]}], ",", 
+       RowBox[{"Lighting", "\[Rule]", "\"\<Neutral\>\""}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"n", ",", "1", ",", "\"\<Principal Quantum Number\>\""}], 
+        "}"}], ",", "1", ",", "nMax", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"l", ",", "0", ",", "\"\<Azimuthal Quantum Number\>\""}], 
+        "}"}], ",", "0", ",", "lMax", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"\[Phi]", ",", "0", ",", "\"\<Azimuthal Angle (\[Phi])\>\""}],
+         "}"}], ",", "0", ",", 
+       RowBox[{"2", "*", "\[Pi]"}]}], "}"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.9047718101697173`*^9, 3.904771810185743*^9}, {
+  3.904771998757162*^9, 3.9047720369632645`*^9}, {3.9047735052990246`*^9, 
+  3.9047735210916476`*^9}},ExpressionUUID->"19ddbe04-4ddf-4e00-8c93-\
+f77b76719592"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`l$$ = 0, $CellContext`n$$ = 
+    1, $CellContext`\[Phi]$$ = 0, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`n$$], 1, "Principal Quantum Number"}, 1, 5, 1}, {{
+       Hold[$CellContext`l$$], 0, "Azimuthal Quantum Number"}, 0, 2, 1}, {{
+       Hold[$CellContext`\[Phi]$$], 0, "Azimuthal Angle (\[Phi])"}, 0, 2 Pi}},
+     Typeset`size$$ = {360., {141., 148.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`n$17703$$ = 0, $CellContext`l$17704$$ = 
+    0, $CellContext`\[Phi]$17705$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`l$$ = 0, $CellContext`n$$ = 
+        1, $CellContext`\[Phi]$$ = 0}, "ControllerVariables" :> {
+        Hold[$CellContext`n$$, $CellContext`n$17703$$, 0], 
+        Hold[$CellContext`l$$, $CellContext`l$17704$$, 0], 
+        Hold[$CellContext`\[Phi]$$, $CellContext`\[Phi]$17705$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot3D[
+        Re[
+         Total[
+          Flatten[
+           
+           Part[$CellContext`wavefunctions, $CellContext`n$$, \
+$CellContext`l$$ + 1]]]], {$CellContext`r, 0, 10}, {$CellContext`\[Theta], 0, 
+         Pi}, PlotRange -> All, AxesLabel -> {"r", "\[Theta]", "Re[\[Psi]]"}, 
+        PlotLabel -> 
+        StringForm[
+         "Hydrogen Atom Wavefunction: n=`1`, l=`2`", $CellContext`n$$, \
+$CellContext`l$$], MeshFunctions -> {#3& }, MeshStyle -> {{Thick, Red}}, 
+        Lighting -> "Neutral"], 
+      "Specifications" :> {{{$CellContext`n$$, 1, "Principal Quantum Number"},
+          1, 5, 1}, {{$CellContext`l$$, 0, "Azimuthal Quantum Number"}, 0, 2, 
+         1}, {{$CellContext`\[Phi]$$, 0, "Azimuthal Angle (\[Phi])"}, 0, 2 
+         Pi}}, "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{411., {228., 235.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.9047718178987145`*^9, {3.904773500477393*^9, 
+   3.9047735242926846`*^9}},ExpressionUUID->"feecd1ea-19d6-466c-bcc8-\
+b8d502f5f8fe"]
+}, Open  ]]
+},
+WindowSize->{759, 833},
+WindowMargins->{{-1723, Automatic}, {9, Automatic}},
+FrontEndVersion->"11.2 for Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 5825, 162, 409, "Input",ExpressionUUID->"19ddbe04-4ddf-4e00-8c93-f77b76719592"],
+Cell[6408, 186, 2844, 57, 482, "Output",ExpressionUUID->"feecd1ea-19d6-466c-bcc8-b8d502f5f8fe"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
